@@ -15,7 +15,23 @@ struct AppSettings: Equatable, Sendable {
 
     private static let d = UserDefaults.standard
 
+    /// One-time import of settings from the pre-rename bundle id's domain.
+    private static func migrateFromProjectOpenerIfNeeded() {
+        guard !d.bool(forKey: "po.migrated") else { return }
+        d.set(true, forKey: "po.migrated")
+        guard let old = UserDefaults(suiteName: "com.sirui.ProjectOpener") else { return }
+        let keys = ["po.roots", "po.maxDepth", "po.excludedNames", "po.defaultAppID",
+                    "po.terminalAppID", "po.hotkeyPreset", "po.autoFetch", "po.smartEditor",
+                    "po.refreshMinutes", "po.expandedGroups", "po.pinned"]
+        for key in keys {
+            if d.object(forKey: key) == nil, let value = old.object(forKey: key) {
+                d.set(value, forKey: key)
+            }
+        }
+    }
+
     static func load() -> AppSettings {
+        migrateFromProjectOpenerIfNeeded()
         var s = AppSettings()
         if let roots = d.stringArray(forKey: "po.roots"), !roots.isEmpty { s.roots = roots }
         let depth = d.integer(forKey: "po.maxDepth")

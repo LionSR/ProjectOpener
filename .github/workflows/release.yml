@@ -19,5 +19,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" dist/*.dmg \
-            --title "ProjectOpener $GITHUB_REF_NAME" \
+            --title "toomany $GITHUB_REF_NAME" \
             --generate-notes

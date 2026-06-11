@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "ProjectOpener",
+    name: "TooMany",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "ProjectOpener",
-            path: "Sources/ProjectOpener"
+            name: "TooMany",
+            path: "Sources/TooMany"
         )
     ]
 )

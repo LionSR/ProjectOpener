@@ -4,8 +4,14 @@ import Foundation
 
 enum CacheStore {
     static let dir: URL = {
-        let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("ProjectOpener", isDirectory: true)
+        let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let url = caches.appendingPathComponent("TooMany", isDirectory: true)
+        // One-time migration from the app's pre-rename cache location.
+        let old = caches.appendingPathComponent("ProjectOpener", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: url.path),
+           FileManager.default.fileExists(atPath: old.path) {
+            try? FileManager.default.moveItem(at: old, to: url)
+        }
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
         return url
     }()

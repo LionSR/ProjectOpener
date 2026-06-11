@@ -55,7 +55,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
             button.image = NSImage(systemSymbolName: "folder.badge.gearshape",
-                                   accessibilityDescription: "ProjectOpener")
+                                   accessibilityDescription: "TooMany")
             button.target = self
             button.action = #selector(statusItemClicked)
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -79,7 +79,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         menu.addItem(withTitle: "Settings…", action: #selector(showSettingsAction), keyEquivalent: ",")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Quit ProjectOpener", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(withTitle: "Quit TooMany", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         // Quit is handled by NSApp; every other item routes back to this delegate.
         for item in menu.items {
             item.target = (item.action == #selector(NSApplication.terminate(_:))) ? NSApp : self
@@ -90,7 +90,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = nil
     }
 
-    /// Re-opening the app (Spotlight, Finder, `open -a ProjectOpener`) summons
+    /// Re-opening the app (Spotlight, Finder, `open -a TooMany`) summons
     /// the panel — a reliable fallback if the hotkey is taken by the system.
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         panelController.show()
@@ -107,7 +107,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func showSettings() {
         if settingsWindow == nil {
             let window = NSWindow(contentViewController: NSHostingController(rootView: SettingsView(store: store)))
-            window.title = "ProjectOpener Settings"
+            window.title = "TooMany Settings"
             window.styleMask = [.titled, .closable, .miniaturizable]
             window.isReleasedWhenClosed = false
             window.center()
@@ -119,7 +119,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-// MARK: - CLI scan (debugging: `ProjectOpener --scan`)
+// MARK: - CLI scan (debugging: `TooMany --scan`)
 
 private func runCLIScan() {
     let settings = AppSettings.load()

@@ -1,19 +1,20 @@
-# ProjectOpener
+# toomany
 
-A native macOS menu-bar launcher for your project folders. Press a global
-hotkey, type a few characters, hit ↩ — the project opens in Cursor, VS Code,
-your terminal, or wherever you want.
+**For people with too many projects.**
+
+Claude Code here, Codex there, a worktree somewhere, three things half-open in
+Cursor… **toomany** finds every project you've touched and reopens it in one
+hotkey — sorted by what you (or your agents) did last.
 
 <p align="center">
-  <img src="docs/screenshot-main.png" width="700" alt="ProjectOpener launcher panel">
+  <img src="docs/screenshot-main.png" width="700" alt="toomany launcher panel">
 </p>
-
 
 ## Features
 
 - **Spotlight-style panel** — global hotkey (default ⌃⌥ Space, configurable) or
   the menu-bar icon. Pin it to keep it open while you work.
-- **Intelligent discovery** — beyond scanning your project roots for git
+- **It knows where you've been** — beyond scanning your project roots for git
   repositories, it learns from the tools you actually use:
   - **Claude Code** (`~/.claude/projects`): session dirs are decoded back to
     real paths (filesystem-guided — handles iCloud paths, spaces, dots), so
@@ -37,7 +38,7 @@ your terminal, or wherever you want.
 - **Smart icons** — project kind detected from marker files (Lean, LaTeX,
   Swift, Rust, Go, Node, Python, notebooks, docs, AI-agent repos) and rendered
   as colored glyph tiles; your custom Finder folder icons are respected.
-- **Fast** — AppKit table UI, ~120 projects scanned in ~2 s in the background
+- **Fast** — native AppKit, ~120 projects scanned in ~2 s in the background
   while the cached list shows instantly.
 
 ## Keys
@@ -53,29 +54,29 @@ your terminal, or wherever you want.
 
 ## Install
 
-Download the DMG from [Releases](../../releases), drag ProjectOpener to
+Download the DMG from [Releases](../../releases), drag TooMany to
 Applications, launch it, and optionally enable "Launch at login" in Settings.
 
 > **Gatekeeper note:** releases are not notarized (no Apple Developer ID).
 > The first launch needs a right-click → Open, or
-> `xattr -d com.apple.quarantine /Applications/ProjectOpener.app`.
+> `xattr -d com.apple.quarantine /Applications/TooMany.app`.
 
 Or build from source (macOS 14+, Xcode command line tools):
 
 ```bash
-./build.sh                 # → dist/ProjectOpener.app
-./make-dmg.sh              # → dist/ProjectOpener-<version>.dmg
-swift build && .build/debug/ProjectOpener --scan   # CLI debug of discovery
+./build.sh                 # → dist/TooMany.app
+./make-dmg.sh              # → dist/TooMany-<version>.dmg
+swift build && .build/debug/TooMany --scan   # CLI debug of discovery
 ```
 
 ## Privacy
 
-Everything stays on your Mac. ProjectOpener reads local metadata only — your
+Everything stays on your Mac. toomany reads local metadata only — your
 configured scan roots, `~/.claude/projects` and `~/.codex/sessions` file
 names/heads (to map sessions to folders), and Cursor/VS Code workspace
 storage. The only network activity is `git fetch` on your own repositories,
 and only if "Check remotes automatically" is enabled. Nothing is uploaded
-anywhere; caches live in `~/Library/Caches/ProjectOpener/`.
+anywhere; caches live in `~/Library/Caches/TooMany/`.
 
 ## Settings
 
